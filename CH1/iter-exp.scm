@@ -13,4 +13,4 @@
   (cond ((= n 0) a)
         ((even? n) (iter-exp a (* b b) (/ n 2)))
         (else (iter-exp (* a b) b (- n 1)))))
-(iter-exp 1 2 3)
+(iter-exp 1 5 5)
