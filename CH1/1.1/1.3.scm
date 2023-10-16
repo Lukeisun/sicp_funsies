@@ -1,0 +1,12 @@
+#lang sicp
+(define (square x) (* x x))
+(define (foo x y z)
+  (cond ((and (> x z) (> y z)) (+ (square x) (square y)))
+        ((and (> x y) (> z y)) (+ (square x) (square z)))
+        (else (+ (square y) (square z)))))
+(foo 2 5 10)
+(foo 2 10 5)
+(foo 5 2 10)
+(foo 5 10 2)
+(foo 10 5 2)
+(foo 10 2 5)
