@@ -1,0 +1,18 @@
+#lang sicp
+(define (double x) (* 2 x))
+(define (halve x) (/ x 2))
+(define (even? x) (= (remainder x 2) 0))
+(define (fast-mult b n)
+  (display "1")
+  (newline)
+  (cond ((= n 0) 0)
+        ((even? n) (double (fast-mult b (halve n))))
+        (else (+ b (fast-mult b (- n 1))))))
+(define (mult a b)
+  (display "2")
+  (newline)
+  (if (= b 0)
+      0
+      (+ a (mult a (- b 1)))))
+(fast-mult 5 30)
+(mult 5 30)
