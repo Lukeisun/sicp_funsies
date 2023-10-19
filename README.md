@@ -7,8 +7,7 @@ This is mostly for my own tracking as I have put these problems on the back burn
 - 1.10 (Trace)
 - 1.13 (Math Proof)
 - 1.14 (Trace)
-- 1.18
-- 1.19
+- 1.20 (Trace)
 - 1.22
 - 1.23
 - 1.24
