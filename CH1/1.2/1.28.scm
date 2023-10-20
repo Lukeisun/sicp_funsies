@@ -1,0 +1,52 @@
+#lang sicp
+;; (define (timed-prime-test n)
+;;   (newline)
+;;   (display n)
+;;   (start-prime-test n (runtime))
+;; (define (start-prime-test n start-time)
+;;   (if (prime? n)
+;;     (report-prime (- (runtime) start-time)))
+;; (define (report-prime elapsed-time)
+;;   (display " *** ")
+;;   (display elapsed-time))
+;; (define (prime? n)
+(define (square x)
+  (* x x))
+(define (even? x)
+  (= (remainder x 2) 0))
+
+;; a little confused with this
+;; i get same result regardless if i check for nontrivial sqrt or not
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (let ((x (square (expmod base (/ exp 2) m))))
+           (if (and (not (or (= x 1) (= x (- m 1))))
+                    (= x 1))
+               0
+               (remainder x m))))
+        (else
+         (remainder (* base (expmod base (- exp 1) m)) m))))
+
+(define (mrt-test n a)
+  (= (expmod a (- n 1) n) (remainder 1 n)))
+
+(define (mrt-prime? n a)
+  (cond ((= n a) true)
+        ((mrt-test n a) (mrt-prime? n (+ a 1)))
+        (else false)))
+;; carmichael
+(mrt-prime? 561 1)
+(mrt-prime? 1105 1)
+(mrt-prime? 1729 1)
+(mrt-prime? 2465 1)
+(mrt-prime? 2821 1)
+(mrt-prime? 6601 1)
+(newline)
+(mrt-prime? 199 1)
+(mrt-prime? 7 1)
+(mrt-prime? 13 1)
+(mrt-prime? 1091 1)
+(newline)
+(mrt-prime? 10 1)
+(mrt-prime? 500 1)
