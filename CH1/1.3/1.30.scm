@@ -13,5 +13,5 @@
   (if (> a b)
       0
       (+ (term a) (sum term (next a) next b))))
-(sum-rec cube 1 inc 100000000)
-(sum cube 1 inc     100000000)
+;; (sum-rec cube 1 inc 100000000)
+(sum cube 1 inc     10)

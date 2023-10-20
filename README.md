@@ -8,8 +8,6 @@ This is mostly for my own tracking as I have put these problems on the back burn
 - 1.13 (Math Proof)
 - 1.14 (Trace)
 - 1.20 (Trace)
-- 1.31
-- 1.32
 - 1.33
 - 1.34
 - 1.37
