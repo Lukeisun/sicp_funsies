@@ -6,10 +6,9 @@
   (define (iter i result)
     (if (> i b)
         result
-        (iter (next i) (let ((x (term i)))
-                         (if (filter x)
-                             (combiner x result)
-                             result)))))
+        (if (filter i)
+            (iter (next i) (combiner (term i) result))
+            (iter (next i) result))))
   (iter a null-val))
 (define (prime? n)
   (= n (smallest-divisor n)))
@@ -28,10 +27,12 @@
   (= (remainder b a) 0))
 
 (define (square x) (* x x))
-(filtered-accumulate (lambda (x) #t) * 1 (lambda (x) x) 1 inc 10) ;; product
+;; (filtered-accumulate (lambda (x) #t) * 1 (lambda (x) x) 1 inc 10) ;; product
 ;; a
-(filtered-accumulate prime? + 0 (lambda (x) x) 2 inc 100)
-(filtered-accumulate prime? + 0 (lambda (x) x) 2 inc 20)
+
+(filtered-accumulate prime? + 0 (lambda (x)  x) 2 inc 100)
+(filtered-accumulate prime? + 0 square 10 inc 15)
+(filtered-accumulate prime? + 0 (lambda (x) (* x x)) 10 inc 15)
 (define n 10)
 (define (gcd? a)
   (define (gcd a b)
