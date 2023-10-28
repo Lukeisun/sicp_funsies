@@ -1,1 +1,57 @@
 #lang sicp
+(define tolerance 0.000001)
+(define (fixed-point f first-guess)
+  (define (close-enough? x y)
+    (< (abs (- x y)) tolerance))
+  (define (try guess)
+    (let ((next (f guess)))
+      ;; (display next)
+      ;; (newline)
+      (if (close-enough? guess next)
+          next
+          (try next))))
+  (try first-guess))
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (compose f g)
+  (lambda (x) (f (g x))))
+
+(define (repeated f n)
+  (define (iter i acc)
+    (if (= i n)
+        acc
+        (iter (+ i 1) (compose f acc))))
+  (iter 1 f))
+
+(define (average-damp f)
+  (lambda (x) (average x (f x))))
+(define (square x) (* x x))
+(define (exp b n)
+  (cond ((= n 0) 1)
+        ((even? n)  (square (exp b (/ n 2))))
+        (else (* b (exp b (- n 1))))))
+(define (sqrt x)
+  (fixed-point (repeated (average-damp (lambda (y) (/ x (exp y 1)))) 1) 1.0))
+(define (cbrt x)
+  (fixed-point (repeated (average-damp (lambda (y) (/ x (exp y 2)))) 1) 1.0))
+(define (fourth-root x)
+  (fixed-point (repeated (average-damp (lambda (y) (/ x (exp y 3)))) 2) 1.0)
+  )
+(define (nth-root x n)
+  (define num-damps (floor (/ (log n) (log 2))))
+  ;; thanks to mk12 again, did not realize the "num-damps"
+  ;; also below was my original code. Still having a little bit of a hard time understanding
+  ;; composing funcrions this way but getting better.
+  ;; (fixed-point (repeated (average-damp (lambda (y) (/ x (exp y (- n 1))))) num-damps) 1.0))
+  ;; this is more or less after i checked my solution and realized i messed up
+  (fixed-point ((repeated average-damp num-damps) (lambda (y) (/ x (exp y (- n 1))))) 1.0))
+(sqrt 9)
+(cbrt 27)
+(fourth-root 81)
+(nth-root 9 2)
+(nth-root 27 3)
+(nth-root 81 4)
+(nth-root 243 5)
+(nth-root 256 8)
+(nth-root 1048576 20)
