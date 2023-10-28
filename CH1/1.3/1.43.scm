@@ -8,4 +8,4 @@
         (iter (+ i 1) (compose f acc))))
   (iter 1 f))
 (define (square x) (* x x))
-((repeated square 2) 10)
+((repeated square 2) 5)
