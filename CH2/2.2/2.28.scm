@@ -1,0 +1,12 @@
+#lang sicp
+(define x (list (list 1 2) (list 3 4)))
+(define (fringe tree)
+  (define (aux x ans)
+    (cond ((null? x) '())
+          ((not (pair? x)) (cons x ans))
+          (else (append (aux (car x) ans) (aux (cdr x) ans)))))
+  (aux tree '()))
+(fringe x)
+(fringe (list x x))
+(define y (list (list 1 (list 2 3)) (list 3 (list 4 (list 5)))))
+(fringe y)
