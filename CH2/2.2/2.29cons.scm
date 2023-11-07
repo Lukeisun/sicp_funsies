@@ -1,17 +1,20 @@
 #lang sicp
+;; all you have to changfe for the cons version
+;; are the right element calls (cdr) so right-branch/branch-structure
+;; from (car (cdr {branch/mobile})) to (cdr {branch/mobile})
 (define (make-mobile left right)
-  (list left right))
+  (cons left right))
 (define (make-branch length structure)
-  (list length structure))
+  (cons length structure))
 
 (define (left-branch mobile)
   (car mobile))
 (define (right-branch mobile)
-  (car (cdr mobile)))
+  (cdr mobile))
 (define (branch-length branch)
   (car branch))
 (define (branch-structure branch)
-  (car (cdr branch)))
+  (cdr branch))
 
 (define (total-weight mobile)
   (define (helper mobile)
@@ -28,14 +31,12 @@
                 (right-pair? (+ lstructure (total-weight rstructure)))
                 (else (+ lstructure rstructure))))))
   (helper mobile))
-;; i definitely did this part wrong so come back to it :D
 (define (torque branch)
   (if (pair? (branch-structure branch))
       (* (branch-length branch) (torque (left-branch (branch-structure branch))) (torque (right-branch (branch-structure branch))))
       (* (branch-length branch) (branch-structure branch))))
 (define (balanced? mobile)
   (= (torque (left-branch mobile)) (torque (right-branch mobile))))
-
 (define x (make-mobile (make-branch 10 20) (make-branch 5 20)))
 (define y (make-mobile (make-branch 5 x) (make-branch 5 20)))
 (define z (make-mobile (make-branch 5 y) (make-branch 5 x)))
@@ -45,6 +46,15 @@
 (total-weight z)
 (balanced? x)
 (balanced? b)
-(define a (make-mobile (make-branch 2 3) (make-branch 2 3)))
-(define d (make-mobile (make-branch 10 a) (make-branch 12 5)))
-(balanced? d)
+;; List output
+;; 40
+;; 60
+;; 100
+;; #f
+;; #t
+;; Cons output
+;; 40
+;; 60
+;; 100
+;; #f
+;; #t

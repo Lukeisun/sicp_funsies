@@ -11,4 +11,5 @@ This is mostly for my own tracking as I have put these problems on the back burn
 - 1.41 (Trace)
 - 2.11 (Programming)
 - 2.15-2.16 (Terribly misunderstood first try, come back to it. Note for future me - It seems that this 
+- 2.29 (I have c wrong for sure, come back to this)
 may have come due to me misunderstanding 2.14. When you go back to this, take a look at that :) ) 
