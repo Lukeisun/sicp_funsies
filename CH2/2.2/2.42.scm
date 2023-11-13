@@ -47,16 +47,25 @@
                  (enumerate-interval 1 board-size)))
           (queen-cols (- k 1))))))
   (queen-cols board-size))
+(define (louis-queens board-size)
+  (define empty-board (list))
+  (define (queen-cols k)
+    (if (= k 0)
+        (list empty-board)
+        (filter
+         (lambda (positions) (safe? k positions))
+         (flatmap
+          (lambda (new-row)
+            (map (lambda (rest-of-queens)
+                   (adjoin-positition new-row k rest-of-queens))
+                 (queen-cols (- k 1))))
+          (enumerate-interval 1 board-size)))))
+  (queen-cols board-size))
 
 (define (adjoin-positition new-row k rest-of-queens)
   (cons (list new-row k) rest-of-queens))
-(flatmap
- (lambda (rest-of-queens)
-   (map (lambda (new-row)
-          (adjoin-positition new-row 1 rest-of-queens))
-        (enumerate-interval 1 3)))
- (list (list)))
 (queens 4)
+;; (louis-queens 8)
 (length (queens 8)) ;; 92!
 ;; I had a pretty tough time with this one, I struggled quite a bit
 ;; even thinking of how this problem was represented. Especially
